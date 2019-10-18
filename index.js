@@ -1,43 +1,19 @@
 const express = require('express');
+const cors = require('cors');
 const multer = require('multer');
 const upload = multer();
+
 const app = express();
 
-const page = inner => `<!doctype html>
-    <html class="no-js" lang="">
-      <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>File Metadata | freeCodeCamp</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width,  initial-scale=1">
-      </head>
-      <body>
-        <h1>File Metadata</h1>
-            ${inner}
-      </body>
-    </html>
-`;
+const origin =
+    process.env.NODE_ENV !== 'production'
+        ? 'http://localhost:3000'
+        : 'https://filemetadata.gordondoskas.com';
 
-app.get('/', (req, res) => {
-    const html = page(`
-        <form action="/metadata" method="post" enctype="multipart/form-data">
-            <input type="file" name="upfile" />
-            <input type="submit" />
-        </form>
-    `);
-    res.send(html);
-});
+app.use(cors({ origin }));
 
 app.post('/metadata', upload.single('upfile'), (req, res, next) => {
-    const html = page(`
-        <pre>${JSON.stringify(req.file, null, 2)}</pre>
-    `);
-
-    // console.log(req);
-
-    res.send(html);
-    // res.send('meta');
+    res.json(req.file);
 });
 
 app.listen(5000, () => {
