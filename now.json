@@ -1,12 +1,38 @@
 {
     "name": "fcc-filemetadata",
     "version": 2,
-    "builds": [{ "src": "index.js", "use": "@now/node-server" }],
+    "builds": [
+        { "src": "index.js", "use": "@now/node-server" },
+        {
+            "src": "client/package.json",
+            "use": "@now/static-build",
+            "config": { "distDir": "build" }
+        }
+    ],
     "routes": [
         {
             "src": "/metadata",
             "dest": "/index.js",
             "methods": ["POST"]
+        },
+
+        {
+            "src": "/test",
+            "dest": "/index.js",
+            "methods": ["GET"]
+        },
+
+        {
+            "src": "/",
+            "headers": {
+                "cache-control": "s-maxage=0"
+            },
+            "dest": "/client/index.html"
+        },
+        {
+            "src": "/static/(.*)",
+            "headers": { "cache-control": "s-maxage=31536000,immutable" },
+            "dest": "/client/static/$1"
         }
     ]
 }

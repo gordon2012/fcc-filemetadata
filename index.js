@@ -8,12 +8,16 @@ const app = express();
 const origin =
     process.env.NODE_ENV !== 'production'
         ? 'http://localhost:3000'
-        : 'https://filemetadata.gordondoskas.com';
+        : 'https://fcc-filemetadata.gdoskas2012.now.sh';
 
 app.use(cors({ origin }));
 
 app.post('/metadata', upload.single('upfile'), (req, res, next) => {
     res.json(req.file);
+});
+
+app.get('/test', (req, res) => {
+    res.json({ test: true });
 });
 
 app.listen(5000, () => {
