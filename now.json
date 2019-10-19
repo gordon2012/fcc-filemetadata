@@ -17,12 +17,6 @@
         },
 
         {
-            "src": "/test",
-            "dest": "/index.js",
-            "methods": ["GET"]
-        },
-
-        {
             "src": "/",
             "headers": {
                 "cache-control": "s-maxage=0"
@@ -33,6 +27,35 @@
             "src": "/static/(.*)",
             "headers": { "cache-control": "s-maxage=31536000,immutable" },
             "dest": "/client/static/$1"
+        },
+
+        {
+            "src": "/manifest.json",
+            "headers": {
+                "cache-control": "s-maxage=0"
+            },
+            "dest": "/client/manifest.json"
+        },
+        {
+            "src": "/favicon.ico",
+            "headers": {
+                "cache-control": "s-maxage=0"
+            },
+            "dest": "/client/favicon.ico"
+        },
+        {
+            "src": "/logo192.png",
+            "headers": {
+                "cache-control": "s-maxage=0"
+            },
+            "dest": "/client/logo192.png"
+        },
+        {
+            "src": "/logo512.png",
+            "headers": {
+                "cache-control": "s-maxage=0"
+            },
+            "dest": "/client/logo512.png"
         }
     ]
 }
